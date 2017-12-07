@@ -1,0 +1,25 @@
+{
+  "name": "puppet",
+  "version": "1.0.0",
+  "description": "A spider with Puppeteer",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leyayun/puppet.git"
+  },
+  "keywords": [
+    "spider",
+    "Puppeteer",
+    "Chrome",
+    "Headless"
+  ],
+  "author": "leyayun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leyayun/puppet/issues"
+  },
+  "homepage": "https://github.com/leyayun/puppet#readme"
+}
