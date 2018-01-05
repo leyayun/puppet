@@ -1,12 +1,13 @@
 const puppeteer = require('puppeteer');
 
-async function main() {
+(async () => {
     const browser = await puppeteer.launch({
         devtools: true,
-        timeout: 60000,
+        timeout: 60 * 1000,
     });
 
-    const page = await browser.newPage();
+    const pages = await browser.pages();
+    const page = pages.length ? pages[0] : await browser.newPage();
     page.setViewport({width: 1440, height: 900});
     await page.goto('http://zu.sh.fang.com/');
     const numPages = await getNumPages(page);
@@ -20,10 +21,8 @@ async function main() {
     }
     console.log(houses);
     console.log('共计', houses.length, '条房源信息');
-    page.close();
-}
-
-main();
+    browser.close();
+})();
 
 async function getNumPages(page) {
     const PAGINATION_TOTAL_SELECTOR = 'div.fanye > span.txt';
@@ -55,12 +54,17 @@ async function getHouses(page) {
 
             const districtElement = element.querySelector('dd > p > a:nth-child(1) > span');
             const district = districtElement ? districtElement.innerText : '';
+
             const streetElement = element.querySelector('dd > p > a:nth-child(2) > span');
             const street = streetElement ? streetElement.innerText : '';
+            
             const communityElement = element.querySelector('dd > p > a:nth-child(3) > span');
             const community = communityElement ? communityElement.innerText : '';
+            
             const trafficElement = element.querySelector('dd > div:nth-child(4) > p > span.subInfor');
             const trafficInfo = trafficElement ? trafficElement.innerText : '';
+            console.log(trafficInfo);
+            
             const address = { district, street, community, trafficInfo };
             
             return {
